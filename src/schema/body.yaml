@@ -1,0 +1,91 @@
+# NOTE 1
+# Additional root members should be removed from this schema and defined as optional
+#
+
+%YAML 1.2
+---
+  $id:                      '/'
+  $async:                   true
+  allOf:
+  - anyOf:
+    - required:
+      - data
+    - required:
+      - errors
+    - required:
+      - meta
+    errorMessage:           >-
+      A document MUST contain
+      at least one of the following top-level members
+  - not:
+      anyOf:
+      - required:
+        - errors
+        - data
+        errorMessage:       >-
+          The members data and errors MUST NOT
+          coexist in the same document
+      - allOf:
+        - not:
+            required:
+            - data
+        - required:
+          - included
+        errorMessage:       >-
+          If a document does not
+          contain a top-level 'data' key,
+          the 'included' member MUST NOT be present either
+  - type:                   object
+    properties:
+      data:
+        $ref:               /data
+      errors:
+        $ref:               /errors
+      meta:
+        $ref:               /meta
+      links:
+        $ref:               /links
+      included:
+        $ref:               /included
+      jsonapi:
+        type:               object
+    # see NOTE 1
+    additionalProperties:   false
+    errorMessage:
+      type:                 >-
+        A JSON object MUST be
+        at the root of every JSON API
+        request and response containing data
+      # see NOTE 1
+      additionalProperties: >-
+        Unless otherwise noted, objects defined
+        by this specification MUST NOT contain
+        any additional members
+---
+  $id:                      /data
+  oneOf:
+  -	$ref:                   /resource
+  -	$ref:                   /included
+  - type:                   'null'
+---
+  $id:                      /errors
+  type:                     array
+  items:
+    $ref:                   /error
+---
+  $id:                      /included
+  type:                     array
+  items:
+    $ref:                   /resource
+---
+  $id:                      /resource
+  type:                     object
+---
+  $id:                      /error
+  type:                     object
+---
+  $id:                      /meta
+  type:                     object
+---
+  $id:                      /links
+  type:                     object

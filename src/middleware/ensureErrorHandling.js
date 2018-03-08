@@ -1,6 +1,6 @@
 import isDevContext from '~/helpers/isDevContext'
 
-export default async (ctx, next) => {
+export default () => async (ctx, next) => {
   try {
     await next()
   } catch (error) {

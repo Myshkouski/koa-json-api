@@ -1,7 +1,7 @@
 import isDevContext from '../helpers/isDevContext'
 import jsonapiMedia from '../helpers/jsonapiMedia'
 
-export default async (ctx, next) => {
+export default () => async (ctx, next) => {
   const isDev = isDevContext(ctx)
   const contentTypes = jsonapiMedia.types(ctx)
 

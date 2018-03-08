@@ -6,7 +6,6 @@ const __src = path.resolve(__approot, 'src')
 const __dist = path.resolve(__approot, 'dist')
 
 const config = {
-  stats: 'errors-only',
   target: 'node',
   devtool: 'source-map',
   externals: [
@@ -29,6 +28,13 @@ const config = {
   },
   module: {
     rules: [
+      {
+        test: /\.ya?ml$/,
+        loader: 'yml-loader',
+        options: {
+          multiDocument: true
+        }
+      },
       {
         test: /\.*\.?rc$/,
         loader: 'json-loader'

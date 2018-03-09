@@ -1,5 +1,5 @@
 import isDevContext from '../helpers/isDevContext'
-import jsonapiMedia from '../helpers/jsonapiMedia'
+import * as jsonapiMedia from '../helpers/jsonapiMedia'
 
 export default () => async (ctx, next) => {
   const isDev = isDevContext(ctx)
@@ -30,7 +30,8 @@ export default () => async (ctx, next) => {
       message,
       detail,
       stack,
-      headers
+      headers,
+      meta
     }) => ({
       id,
       status,
@@ -51,10 +52,9 @@ export default () => async (ctx, next) => {
         ctx.status = 400
       }
     } else {
+      ctx.status = initialError.status
       if ('meta' in initialError && 'headers' in initialError.meta) {
-        for (let key in initialError.meta.headers) {
-          ctx.set(key, initialError.meta.headers[key])
-        }
+        ctx.set(initialError.meta.headers)
       }
     }
 

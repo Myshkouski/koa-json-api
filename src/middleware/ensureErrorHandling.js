@@ -1,16 +1,19 @@
-import isDevContext from '~/helpers/isDevContext'
+import isDevContext from '../helpers/isDevContext'
 
 export default () => async (ctx, next) => {
   try {
     await next()
   } catch (error) {
     const isDev = isDevContext(ctx)
-    ctx.status = 500
+    ctx.status = 501
     ctx.body = {
       errors: [{
-        status: 500,
+        status: ctx.status,
         title: 'JSON API error',
-        details: isDev ? error.message : undefined
+        details: isDev ? error.message : undefined,
+        meta: {
+          stack: isDev ? error.stack : undefined
+        }
       }]
     }
   }

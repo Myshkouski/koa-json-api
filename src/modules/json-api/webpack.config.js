@@ -22,13 +22,11 @@ const config = {
   resolve: {
     extensions: ['.js', '.json', '.yaml'],
     alias: {
-      '~': __src,
-      '~paths': path.resolve(__approot, '.rootrc')
+      '~': __src
     }
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.ya?ml$/,
         loader: 'yml-loader',
         options: {
@@ -36,7 +34,7 @@ const config = {
         }
       },
       {
-        test: /\.*\.?rc$/,
+        test: /\.json$/,
         loader: 'json-loader'
       },
       {

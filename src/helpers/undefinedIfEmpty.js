@@ -1,4 +1,4 @@
-const f = value => {
+export default value => {
   if (
     (
       typeof value == 'object' &&
@@ -9,5 +9,3 @@ const f = value => {
     return value
   }
 }
-
-export default f

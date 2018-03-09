@@ -1,19 +1,20 @@
 import Router from 'koa-router'
-import bodyParser from 'koa-bodyparser'
 
 import exposeContextProps from './middleware/exposeContextProps'
 import ensureErrorHandling from './middleware/ensureErrorHandling'
 import errors from './middleware/errors'
-import validate from './service/validate'
+import validateRequest from './middleware/validateRequest'
+import bodyParser from './middleware/bodyParser'
 
 function JsonApiRouter(options) {
   const router = new Router()
 
   return router
-    .use(exposeContextProps())
     .use(ensureErrorHandling())
+    .use(exposeContextProps())
     .use(errors())
     .use(bodyParser())
+    .use(validateRequest())
 }
 
 export { JsonApiRouter as Router }

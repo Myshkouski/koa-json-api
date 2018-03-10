@@ -40,11 +40,15 @@
       data:
         $ref:               /data
       errors:
-        $ref:               /errors
+        type:               array
+        items:
+          $ref:             /error
       meta:
         $ref:               /meta
       links:
-        $ref:               /links
+        type:               array
+        items:
+          $ref:             /link
       included:
         $ref:               /included
       jsonapi:
@@ -80,6 +84,44 @@
 ---
   $id:                      /resource
   type:                     object
+  properties:
+    id:
+      type:                 string
+    type:
+      type:                 string
+    meta:
+      $ref:                 /meta
+  oneOf:
+  - properties:
+      attributes:
+        type:               object
+      relationships:
+        type:               array
+        items:
+          $ref:             /resource
+      links:
+        type:               array
+        items:
+          $ref:             /link
+    allOf:
+    - anyOf:
+      - required:
+        - id
+      - required:
+        - type
+    - anyOf:
+      - required:
+        - attributes
+      - required:
+        - relationships
+      - required:
+        - links
+      - required:
+        - meta
+  - required:
+    - id
+    - type
+    additionalProperties:   false
 ---
   $id:                      /error
   type:                     object
@@ -87,5 +129,5 @@
   $id:                      /meta
   type:                     object
 ---
-  $id:                      /links
+  $id:                      /link
   type:                     object

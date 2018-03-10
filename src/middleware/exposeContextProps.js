@@ -70,6 +70,7 @@ import Error from 'http-errors'
 import JsonApi from '../modules/json-api'
 
 export default () => async (ctx, next) => {
+  ctx.body = {}
   ctx.jsonapi = new JsonApi({
     body: ctx.body
   })

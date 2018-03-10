@@ -5,18 +5,23 @@ import Ajv from 'ajv'
 import schemas from './schemas'
 // import ops from './ops'
 
-const ajv = new Ajv({ schemas })
+const ajv = new Ajv({
+  schemas
+})
 
 const noError = doc => {
-  if(jsonPointer.has(doc, '/errors')) {
+  if (jsonPointer.has(doc, '/errors')) {
     throw new Error(`'/errors' has been already set`)
   }
 }
 
 class JsonApi {
-  constructor({ body }) {
-    this.body = typeof body == 'object' ? body : {}
-    ['data', 'meta', 'error'].forEach(key => {
+  constructor({
+    body
+  }) {
+    this.body = typeof body == 'object' ? body : {};
+    const keys = ['data', 'meta', 'error']
+    keys.forEach(key => {
       this[key] = JsonApi[key].bind(this, this.body)
     })
   }
@@ -26,14 +31,15 @@ class JsonApi {
   }
 
   static data(doc, value) {
-    console.log(doc, value)
     noError(doc)
 
     const path = '/data'
 
-    const ops = [
-      { op: 'replace', path, value }
-    ]
+    const ops = [{
+      op: 'replace',
+      path,
+      value
+    }]
 
     return JsonApi.patch(doc, ops)
   }
@@ -41,17 +47,29 @@ class JsonApi {
   static error(doc, value) {
     const path = '/errors'
 
-    const ops = [
-      { op: 'add', path: `${ path }/-`, value }
-    ]
+    const ops = [{
+      op: 'add',
+      path: `${ path }/-`,
+      value
+    }]
 
-    if(!jsonPointer.has(doc, path)) {
-      ops.unshift({ op: 'add', path, value: [] })
+    if (!jsonPointer.has(doc, path)) {
+      ops.unshift({
+        op: 'add',
+        path,
+        value: []
+      })
     }
 
-    if(jsonPointer.has('/data')) {
-      ops.unshift({ op: 'remove', path: '/included' })
-      ops.unshift({ op: 'remove', path: '/data' })
+    if (jsonPointer.has(doc, '/data')) {
+      ops.unshift({
+        op: 'remove',
+        path: '/included'
+      })
+      ops.unshift({
+        op: 'remove',
+        path: '/data'
+      })
     }
 
     return JsonApi.patch(doc, ops)
@@ -62,9 +80,11 @@ class JsonApi {
 
     const path = '/meta'
 
-    const ops = [
-      { op: 'add', path, value }
-    ]
+    const ops = [{
+      op: 'add',
+      path,
+      value
+    }]
 
     return JsonApi.patch(doc, ops)
   }

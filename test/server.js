@@ -5,7 +5,9 @@ const koa = new Koa()
 const router = new Router()
 
 router.post('/', async ctx => {
-  ctx.jsonapi.data({})
+  ctx.jsonapi.data({
+    ok: true
+  })
 })
 
 koa.use(router.routes())

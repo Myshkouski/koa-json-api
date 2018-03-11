@@ -2,19 +2,42 @@ import bodyParser from 'koa-bodyparser'
 import isDevContext from '../helpers/isDevContext'
 import * as jsonapiMedia from '../helpers/jsonapiMedia'
 
-export default (options = {}) => bodyParser({
+const options = {
   strict: true,
   enableTypes: ['json'],
   detectJSON: ctx => {
     const mediaTypes = jsonapiMedia.types(ctx)
-    return !!ctx.request.is(...mediaTypes)
+    const isJSON = !!ctx.request.is(...mediaTypes)
+    ctx.assert(isJSON, 415)
+    return isJSON
   },
-  onerror: (ctx, error) => {
-    ctx.throw(415, {
-      detail: error.message,
-      headers: {
-        accept: jsonapiMedia.stringify(jsonapiMedia.types(ctx))
-      }
-    })
+  // onerror: (error, ctx) => {
+  //   ctx.throw(error.statusCode || 415, {
+  //     details: error.message,
+  //     headers: {
+  //       accept: jsonapiMedia.stringify(jsonapiMedia.types(ctx))
+  //     }
+  //   })
+  // }
+}
+
+export default options => {
+  const parser = bodyParser(options)
+
+  return async (ctx, next) => {
+    try {
+      await parser(ctx, async () => {
+        ctx.state.hasBody = true
+      })
+    } catch (error) {
+      ctx.throw(error.statusCode || 415, {
+        details: error.message,
+        headers: {
+          accept: jsonapiMedia.stringify(jsonapiMedia.types(ctx))
+        }
+      })
+    }
+
+    await next()
   }
-})
+}

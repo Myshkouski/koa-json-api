@@ -7,7 +7,7 @@ const ajv = new Ajv({
   allErrors: true,
   jsonPointers: true
 })
-AjvErrors(ajv)
+AjvErrors(ajv, {})
 
 export const validate = (schemaId, data) => ajv.validate(schemaId, data)
 export { schemas }

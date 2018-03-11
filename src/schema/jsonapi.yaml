@@ -1,6 +1,12 @@
 # NOTE 1
 # Additional root members should be removed from this schema and defined as optional
 #
+# NOTE 2
+# Exception:                The id member is not required when the resource object originates
+# at the client and represents a new resource to be created on the server
+# (NOTE 1 should be implemented).
+#
+#
 
 %YAML 1.2
 ---
@@ -40,15 +46,11 @@
       data:
         $ref:               /data
       errors:
-        type:               array
-        items:
-          $ref:             /error
+        $ref:               /errors
       meta:
         $ref:               /meta
       links:
-        type:               array
-        items:
-          $ref:             /link
+        $ref:               /links
       included:
         $ref:               /included
       jsonapi:
@@ -71,11 +73,28 @@
   -	$ref:                   /resource
   -	$ref:                   /included
   - type:                   'null'
+  errorMessage:             >-
+    Primary data MUST be either a single resource object,
+    or a single resource identifier object,
+    or null, for requests that target single resources,
+    or an array of resource objects,
+    or an array of resource identifier objects,
+    or an empty array for requests that target resource collections
 ---
   $id:                      /errors
   type:                     array
   items:
     $ref:                   /error
+---
+  $id:                      /links
+  type:                     object
+  patternProperties:
+    ^.*:
+      $ref:                 '/link'
+  additionalProperties:     false
+  errorMessage:
+    type:                   >-
+      The value of each 'links' member MUST be an object
 ---
   $id:                      /included
   type:                     array
@@ -87,41 +106,31 @@
   properties:
     id:
       type:                 string
+      errorMessage:         >-
+        The values of the 'id' member MUST be strings
     type:
       type:                 string
+      errorMessage:         >-
+        The values of the 'type' member MUST be strings
     meta:
       $ref:                 /meta
-  oneOf:
-  - properties:
-      attributes:
-        type:               object
-      relationships:
-        type:               array
-        items:
-          $ref:             /resource
-      links:
-        type:               array
-        items:
-          $ref:             /link
-    allOf:
-    - anyOf:
-      - required:
-        - id
-      - required:
-        - type
-    - anyOf:
-      - required:
-        - attributes
-      - required:
-        - relationships
-      - required:
-        - links
-      - required:
-        - meta
-  - required:
-    - id
-    - type
-    additionalProperties:   false
+    attributes:
+      type:                 object
+    relationships:
+      type:                 array
+      items:
+        $ref:               /resource
+    links:
+      $ref:                 /links
+  required:
+  # see NOTE 2
+  - id
+  - type
+  additionalProperties:     false
+  errorMessage:
+    required:               >-
+      Every resource object MUST contain
+      an 'id' member and a 'type' member
 ---
   $id:                      /error
   type:                     object
@@ -130,4 +139,21 @@
   type:                     object
 ---
   $id:                      /link
-  type:                     object
+  oneOf:
+  - type:
+    - string
+  - type:
+    - object
+    properties:
+      href:
+        type:               string
+        errorMessage:       >-
+          Member 'href' should be a string containing the link’s URL.
+      meta:
+        $ref:               /meta
+    additionalProperties:   false
+
+  errorMessage:             >-
+      A 'link' MUST be represented either
+      a string containing the link’s URL,
+      or an object which can contain the 'href' and 'meta' members

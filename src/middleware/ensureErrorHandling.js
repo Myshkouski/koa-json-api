@@ -1,3 +1,4 @@
+import HttpError from 'http-errors'
 import isDevContext from '../helpers/isDevContext'
 
 export default () => async (ctx, next) => {
@@ -5,16 +6,24 @@ export default () => async (ctx, next) => {
     await next()
   } catch (error) {
     const isDev = isDevContext(ctx)
-    ctx.status = 501
-    ctx.body = {
-      errors: [{
-        status: ctx.status,
-        title: 'JSON API error',
-        details: isDev ? error.message : undefined,
+    const errors = []
+
+    if (error.status) {
+      errors.push(error)
+    } else {
+      errors.push({
+        status: 501,
+        title: 'Internal Server Error',
+        detail: `JSON API implementation error${ isDev ? `: ${ error.message }` : ''}`,
         meta: {
           stack: isDev ? error.stack : undefined
         }
-      }]
+      })
+    }
+
+    ctx.status = errors[0].status
+    ctx.body = {
+      errors
     }
   }
 }

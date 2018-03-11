@@ -7,11 +7,13 @@ import validateRequest from './middleware/validateRequest'
 import bodyParser from './middleware/bodyParser'
 
 function JsonApiRouter(options) {
-  const router = new Router()
+  const router = new Router(options)
 
   return router
     .use(ensureErrorHandling())
-    .use(exposeContextProps())
+    .use(exposeContextProps({
+      validate: options.validate
+    }))
     .use(errors())
     .use(bodyParser())
     .use(validateRequest())

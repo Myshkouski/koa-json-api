@@ -2,12 +2,18 @@ const Koa = require('koa')
 const { Router } = require('../')
 
 const koa = new Koa()
-const router = new Router()
+const router = new Router({
+  validate: true
+})
 
 router.post('/', async ctx => {
-  ctx.jsonapi.data({
-    ok: true
+  await ctx.jsonapi.add('/data', {
+    id: '0',
+    type: 'test'
   })
+
+  await ctx.jsonapi.add('/links', {})
+  await ctx.jsonapi.add('/links/self', '/')
 })
 
 koa.use(router.routes())

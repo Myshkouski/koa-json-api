@@ -306,9 +306,7 @@ var JsonApi = function () {
       return (0, _keys2.default)(schemas).reduce(function (array, key, index) {
         var schema = {};
 
-        throw new Error('test');
-
-        if (asdasdadsasd == 'index') {
+        if (options.id == 'index') {
           schema.id = index;
         } else {
           schema.id = schemas[key][options.id];
@@ -734,6 +732,37 @@ var getSchemas = exports.getSchemas = function getSchemas(refs) {
 
 /***/ }),
 
+/***/ "./src/helpers/createInitialError.js":
+/*!*******************************************!*\
+  !*** ./src/helpers/createInitialError.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "babel-runtime/core-js/object/assign");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (error) {
+  return (0, _assign2.default)({}, error, {
+    message: error.message,
+    stack: error.stack
+  });
+};
+
+module.exports = exports["default"];
+
+/***/ }),
+
 /***/ "./src/helpers/isDevContext.js":
 /*!*************************************!*\
   !*** ./src/helpers/isDevContext.js ***!
@@ -1002,6 +1031,10 @@ var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "babel-r
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "babel-runtime/core-js/object/assign");
+
+var _assign2 = _interopRequireDefault(_assign);
+
 var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "babel-runtime/helpers/asyncToGenerator");
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -1014,12 +1047,17 @@ var _isDevContext = __webpack_require__(/*! ../helpers/isDevContext */ "./src/he
 
 var _isDevContext2 = _interopRequireDefault(_isDevContext);
 
+var _createInitialError = __webpack_require__(/*! ../helpers/createInitialError */ "./src/helpers/createInitialError.js");
+
+var _createInitialError2 = _interopRequireDefault(_createInitialError);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
   return function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
-      var isDev, errors;
+      var isDev, errors, _error;
+
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -1040,16 +1078,21 @@ exports.default = function () {
 
 
               if (_context.t0.status) {
-                errors.push(_context.t0);
+                errors.push((0, _assign2.default)({
+                  status: _context.t0.status
+                }, _context.t0));
               } else {
-                errors.push({
-                  status: 500,
-                  title: 'Internal Server Error',
-                  detail: 'JSON API implementation error' + (isDev ? ': ' + _context.t0.message : ''),
-                  meta: {
-                    stack: isDev ? _context.t0.stack : undefined
-                  }
+                _error = new _httpErrors2.default(500, {
+                  detail: 'JSON API implementation error',
+                  meta: isDev ? {
+                    initialError: (0, _createInitialError2.default)(_context.t0)
+                  } : undefined
                 });
+
+
+                errors.push((0, _assign2.default)({
+                  status: _error.status
+                }, _error));
               }
 
               ctx.status = errors[0].status;
@@ -1112,6 +1155,10 @@ var _isDevContext2 = _interopRequireDefault(_isDevContext);
 var _jsonapiMedia = __webpack_require__(/*! ../helpers/jsonapiMedia */ "./src/helpers/jsonapiMedia.js");
 
 var jsonapiMedia = _interopRequireWildcard(_jsonapiMedia);
+
+var _createInitialError = __webpack_require__(/*! ../helpers/createInitialError */ "./src/helpers/createInitialError.js");
+
+var _createInitialError2 = _interopRequireDefault(_createInitialError);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -1185,10 +1232,7 @@ exports.default = function () {
                 ctx.throw(500, {
                   detail: 'Initial error has no status code. Assuming it is an implementation error.',
                   meta: {
-                    initialError: (0, _assign2.default)({}, initialError, {
-                      message: initialError.message,
-                      stack: initialError.stack
-                    })
+                    initialError: (0, _createInitialError2.default)(initialError)
                   }
                 });
               }

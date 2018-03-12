@@ -1,6 +1,7 @@
 import HttpError from 'http-errors'
 import isDevContext from '../helpers/isDevContext'
 import * as jsonapiMedia from '../helpers/jsonapiMedia'
+import createInitialError from '../helpers/createInitialError'
 
 const mapErrorsToJsonApiErrors = isDev => error => {
   const {
@@ -55,10 +56,7 @@ export default () => async (ctx, next) => {
       ctx.throw(500, {
         detail: `Initial error has no status code. Assuming it is an implementation error.`,
         meta: {
-          initialError: Object.assign({}, initialError, {
-            message: initialError.message,
-            stack: initialError.stack
-          })
+          initialError: createInitialError(initialError)
         }
       })
     }

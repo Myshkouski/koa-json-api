@@ -24,7 +24,7 @@ router.post('/', async ctx => {
 })
 
 router.get('/schemas', async ctx => {
-  const schemas = getSchemas()
+  const schemas = getSchemas().map(({ type, id }) => ({ type, id }))
 
   await ctx.data(null)
   await ctx.included(schemas)

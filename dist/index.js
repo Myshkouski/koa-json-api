@@ -1316,7 +1316,17 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var properties = ['data', 'meta', 'links', 'included'];
+var properties = ['data', 'meta', 'links'];
+var mapKeys = function mapKeys(value, keys) {
+  if (!value) {
+    return value;
+  }
+
+  return keys.reduce(function (_value, key) {
+    _value[key] = value[key];
+    return _value;
+  }, {});
+};
 
 exports.default = function (options) {
   return function () {
@@ -1334,32 +1344,65 @@ exports.default = function (options) {
                 body: ctx.body
               }));
 
+              (0, _defineProperties2.default)(ctx, {
+                rel: {
+                  value: function value() {}
+                }
+              });
+
               (0, _defineProperties2.default)(ctx, properties.reduce(function (descriptor, prop) {
                 descriptor[prop] = {
                   value: function () {
                     var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
                       var path,
                           value,
+                          options,
+                          _value,
                           _args = arguments;
+
                       return _regenerator2.default.wrap(function _callee$(_context) {
                         while (1) {
                           switch (_context.prev = _context.next) {
                             case 0:
-                              path = '', value = _args.length <= 0 ? undefined : _args[0];
+                              path = '', value = void 0, options = {};
 
 
-                              if (_args.length > 1) {
+                              if (typeof (_args.length <= 0 ? undefined : _args[0]) == 'string') {
                                 path = _args.length <= 0 ? undefined : _args[0];
                                 value = _args.length <= 1 ? undefined : _args[1];
+
+                                if (_args.length > 2) {
+                                  options = _args.length <= 2 ? undefined : _args[2];
+                                }
+                              } else {
+                                value = _args.length <= 0 ? undefined : _args[0];
+                                if (_args.length > 1) {
+                                  options = _args.length <= 1 ? undefined : _args[1];
+                                }
                               }
 
-                              _context.next = 4;
-                              return ctx.jsonapi.add('/' + prop + path, value);
+                              _value = void 0;
 
-                            case 4:
+
+                              if ('keys' in options) {
+                                if (Array.isArray(value)) {
+                                  _value = value.map(function (item) {
+                                    return mapKeys(item, options.keys);
+                                  });
+                                } else {
+                                  _value = mapKeys(value, options.keys);
+                                }
+                              } else {
+                                _value = value;
+                              }
+
+                              _context.next = 6;
+                              return ctx.jsonapi.add('/' + prop + path, _value);
+
+                            case 6:
                               return _context.abrupt('return', _context.sent);
 
-                            case 5:
+                            case 7:
                             case 'end':
                               return _context.stop();
                           }
@@ -1378,14 +1421,14 @@ exports.default = function (options) {
                 return descriptor;
               }, {}));
 
-              _context2.next = 6;
+              _context2.next = 7;
               return next();
 
-            case 6:
+            case 7:
 
               ctx.set('content-type', mediaTypes[0] + ';charset=utf-8');
 
-            case 7:
+            case 8:
             case 'end':
               return _context2.stop();
           }

@@ -24,6 +24,7 @@ const config = {
     alias: {
       '~': __src,
       '~paths': path.resolve(__approot, '.rootrc')
+      , 'json-api': path.resolve(__approot, '../json-api')
     }
   },
   module: {
@@ -43,7 +44,7 @@ const config = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [
-          "babel-loader",
+          'babel-loader',
           // "eslint-loader"
         ],
       }

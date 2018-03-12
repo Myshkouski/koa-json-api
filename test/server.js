@@ -1,19 +1,33 @@
 const Koa = require('koa')
-const { Router } = require('../')
+const { Router, getSchemas } = require('../')
 
 const koa = new Koa()
 const router = new Router({
-  validate: true
+  validate: {
+    patch: false,
+    request: false,
+    response: true
+  },
+  optionalSchema: []
 })
 
 router.post('/', async ctx => {
-  await ctx.jsonapi.add('/data', {
+  await ctx.data({
     id: '0',
     type: 'test'
   })
 
-  await ctx.jsonapi.add('/links', {})
-  await ctx.jsonapi.add('/links/self', '/')
+  await ctx.links({})
+  await ctx.links('/self', '/')
+
+  await ctx.jsonapi.add('/errors', [])
+})
+
+router.get('/schemas', async ctx => {
+  const schemas = getSchemas()
+
+  await ctx.data(null)
+  await ctx.included(schemas)
 })
 
 koa.use(router.routes())

@@ -12,7 +12,7 @@ export default () => async (ctx, next) => {
       errors.push(error)
     } else {
       errors.push({
-        status: 501,
+        status: 500,
         title: 'Internal Server Error',
         detail: `JSON API implementation error${ isDev ? `: ${ error.message }` : ''}`,
         meta: {

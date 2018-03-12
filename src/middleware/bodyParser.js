@@ -10,15 +10,7 @@ const options = {
     const isJSON = !!ctx.request.is(...mediaTypes)
     ctx.assert(isJSON, 415)
     return isJSON
-  },
-  // onerror: (error, ctx) => {
-  //   ctx.throw(error.statusCode || 415, {
-  //     details: error.message,
-  //     headers: {
-  //       accept: jsonapiMedia.stringify(jsonapiMedia.types(ctx))
-  //     }
-  //   })
-  // }
+  }
 }
 
 export default options => {
@@ -27,7 +19,8 @@ export default options => {
   return async (ctx, next) => {
     try {
       await parser(ctx, async () => {
-        ctx.state.hasBody = true
+        const rawBody = ctx.request.rawBody
+        ctx.state.hasBody = !!(rawBody && rawBody.length)
       })
     } catch (error) {
       ctx.throw(error.statusCode || 415, {

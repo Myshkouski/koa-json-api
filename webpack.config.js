@@ -24,7 +24,7 @@ const config = {
     alias: {
       '~': __src,
       '~paths': path.resolve(__approot, '.rootrc')
-      , 'json-api': path.resolve(__approot, '../json-api')
+      , '@alexeimyshkouski/json-api': path.resolve(__approot, '../json-api')
     }
   },
   module: {

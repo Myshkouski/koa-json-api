@@ -21,7 +21,8 @@
     "json-patch": "^0.7.0",
     "json8-patch": "^0.4.1",
     "koa-bodyparser": "^4.2.0",
-    "koa-router": "^7.4.0"
+    "koa-router": "^7.4.0",
+    "lodash.defaultsdeep": "^4.6.0"
   },
   "devDependencies": {
     "babel-loader": "^7.1.3",

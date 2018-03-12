@@ -2,7 +2,7 @@ import HttpError from 'http-errors'
 import isDevContext from '../helpers/isDevContext'
 import * as jsonapiMedia from '../helpers/jsonapiMedia'
 
-const mapErrrosToJsonApiErrors = isDev => error => {
+const mapErrorsToJsonApiErrors = isDev => error => {
   const {
     id,
     status,
@@ -27,13 +27,13 @@ const mapErrrosToJsonApiErrors = isDev => error => {
   }
 
   if(isDev || headers) {
-    const jsonapiMeta = Object.assign(meta, {
+    const jsonapiMeta = Object.assign({}, meta, {
       headers,
       stack: isDev ? stack : undefined
     })
 
     Object.assign(jsonapiError, {
-      meta
+      meta: jsonapiMeta
     })
   }
 
@@ -47,7 +47,7 @@ export default () => async (ctx, next) => {
   try {
     await next()
   } catch (errorOrErrors) {
-    const errors = (Array.isArray(errorOrErrors) ? errorOrErrors : [errorOrErrors]).map(mapErrrosToJsonApiErrors(isDev))
+    let errors = (Array.isArray(errorOrErrors) ? errorOrErrors : [errorOrErrors])
 
     const initialError = errors[0]
 
@@ -55,10 +55,17 @@ export default () => async (ctx, next) => {
       ctx.throw(500, {
         detail: `Initial error has no status code. Assuming it is an implementation error.`,
         meta: {
-          initialError
+          initialError: Object.assign({}, initialError, {
+            message: initialError.message,
+            stack: initialError.stack
+          })
         }
       })
-    } else if (errors.length > 1) {
+    }
+
+    errors = errors.map(mapErrorsToJsonApiErrors(isDev))
+
+    if (errors.length > 1) {
       if (initialError.status >= 500) {
         ctx.status = 500
       } else if (initialError.status >= 400) {

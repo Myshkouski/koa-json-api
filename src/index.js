@@ -17,17 +17,18 @@ function JsonApiRouter(options) {
       response: false
     }
   })
+  
   const router = new Router(options)
 
   return router
     .use(ensureErrorHandling())
       .use(exposeContextProps({ validatePatch: options.validate.patch }))
-        .use(errors())
-          .use(bodyParser())
-            .use(validate({
-              request: options.validate.request,
-              response: options.validate.response
-            }))
+      .use(errors())
+        .use(bodyParser())
+        .use(validate({
+          request: options.validate.request,
+          response: options.validate.response
+        }))
 }
 
 export { JsonApiRouter as Router }

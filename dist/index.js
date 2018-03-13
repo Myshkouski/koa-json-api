@@ -1,2 +1,1024 @@
-module.exports=function(e){var t={};function r(n){if(t[n])return t[n].exports;var a=t[n]={i:n,l:!1,exports:{}};return e[n].call(a.exports,a,a.exports,r),a.l=!0,a.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:n})},r.r=function(e){Object.defineProperty(e,"__esModule",{value:!0})},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r.w={},r(r.s=18)}([function(e,t){e.exports=require("babel-runtime/helpers/asyncToGenerator")},function(e,t){e.exports=require("babel-runtime/core-js/object/assign")},function(e,t){e.exports=require("babel-runtime/regenerator")},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default=function(e){return"development"==e.app.env},e.exports=t.default},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.stringify=t.types=t.JSON_API_MEDIA_TYPES_DEV=t.JSON_API_MEDIA_TYPES=void 0;var n,a=r(3),u=(n=a)&&n.__esModule?n:{default:n};var s=t.JSON_API_MEDIA_TYPES=["application/vnd.api+json"],o=t.JSON_API_MEDIA_TYPES_DEV=["application/json"];t.types=function(e){return(0,u.default)(e)?[].concat(s,o):[].concat(s)},t.stringify=function(e){return e.filter(function(e){return!!e}).join(",")}},function(e,t){e.exports=require("@alexeimyshkouski/json-api")},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n,a=r(1),u=(n=a)&&n.__esModule?n:{default:n};t.default=function(e){return(0,u.default)({},e,{message:e.message,stack:e.stack})},e.exports=t.default},function(e,t){e.exports=require("http-errors")},function(e,t){e.exports=require("lodash.defaultsdeep")},function(e,t){e.exports=require("koa-bodyparser")},function(e,t){e.exports=require("babel-runtime/helpers/toConsumableArray")},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=o(r(2)),a=o(r(0)),u=(o(r(10)),o(r(9))),s=(o(r(3)),function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&(t[r]=e[r]);return t.default=e,t}(r(4)));function o(e){return e&&e.__esModule?e:{default:e}}t.default=function(e){var t,r=(0,u.default)(e);return t=(0,a.default)(n.default.mark(function e(t,u){return n.default.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:return e.prev=0,e.next=3,r(t,(0,a.default)(n.default.mark(function e(){var r;return n.default.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:r=t.request.rawBody,t.state.hasBody=!(!r||!r.length);case 2:case"end":return e.stop()}},e,void 0)})));case 3:e.next=8;break;case 5:e.prev=5,e.t0=e.catch(0),t.throw(e.t0.statusCode||415,{details:e.t0.message,headers:{accept:s.stringify(s.types(t))}});case 8:return e.next=10,u();case 10:case"end":return e.stop()}},e,void 0,[[0,5]])})),function(e,r){return t.apply(this,arguments)}},e.exports=t.default},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=i(r(2)),a=i(r(1)),u=i(r(0)),s=i(r(5)),o=i(r(8));function i(e){return e&&e.__esModule?e:{default:e}}t.default=function(e){return e=(0,o.default)({},e,{request:!0,response:!1}),t=(0,u.default)(n.default.mark(function t(r,u){return n.default.wrap(function(t){for(;;)switch(t.prev=t.next){case 0:if(!e.request||!r.state.hasBody){t.next=9;break}return t.prev=1,t.next=4,s.default.validate(r.request.body);case 4:t.next=9;break;case 6:t.prev=6,t.t0=t.catch(1),r.throw(422,{detail:"ValidationError: request body is not valid",meta:t.t0.reasons});case 9:return t.next=11,u();case 11:if(!e.response){t.next=21;break}return t.prev=12,t.next=15,s.default.validate(r.body);case 15:t.next=21;break;case 17:throw t.prev=17,t.t1=t.catch(12),(0,a.default)({detail:"ValidationError: response body is not valid",meta:t.t1.reasons}),t.t1;case 21:case"end":return t.stop()}},t,void 0,[[1,6],[12,17]])})),function(e,r){return t.apply(this,arguments)};var t},e.exports=t.default},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=f(r(2)),a=f(r(0)),u=f(r(1)),s=(f(r(7)),f(r(3))),o=function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&(t[r]=e[r]);return t.default=e,t}(r(4)),i=f(r(6));function f(e){return e&&e.__esModule?e:{default:e}}var d=function(e){return function(t){t.id,t.status;var r=t.expose,n=t.message,a=t.detail,s=t.stack,o=t.headers,i=t.meta,f={id:t.id,status:t.status};if((e||r)&&(0,u.default)(f,{title:n,detail:a}),e||o){var d=(0,u.default)({},i,{headers:o,stack:e?s:void 0});(0,u.default)(f,{meta:d})}return f}};t.default=function(){return e=(0,a.default)(n.default.mark(function e(t,r){var a,u,f;return n.default.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:return a=(0,s.default)(t),o.types(t),e.prev=2,e.next=5,r();case 5:e.next=15;break;case 7:e.prev=7,e.t0=e.catch(2),u=Array.isArray(e.t0)?e.t0:[e.t0],(f=u[0]).status||t.throw(500,{detail:"Initial error has no status code. Assuming it is an implementation error.",meta:{initialError:(0,i.default)(f)}}),(u=u.map(d(a))).length>1?f.status>=500?t.status=500:f.status>=400&&(t.status=400):(t.status=f.status,"meta"in f&&"headers"in f.meta&&t.set(f.meta.headers)),t.body={errors:u};case 15:case"end":return e.stop()}},e,void 0,[[2,7]])})),function(t,r){return e.apply(this,arguments)};var e},e.exports=t.default},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=f(r(2)),a=f(r(1)),u=f(r(0)),s=f(r(7)),o=f(r(3)),i=f(r(6));function f(e){return e&&e.__esModule?e:{default:e}}t.default=function(){return e=(0,u.default)(n.default.mark(function e(t,r){var u,f,d;return n.default.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:return e.prev=0,e.next=3,r();case 3:e.next=12;break;case 5:e.prev=5,e.t0=e.catch(0),u=(0,o.default)(t),f=[],e.t0.status?f.push((0,a.default)({status:e.t0.status},e.t0)):(d=new s.default(500,{detail:"JSON API implementation error",meta:u?{initialError:(0,i.default)(e.t0)}:void 0}),f.push((0,a.default)({status:d.status},d))),t.status=f[0].status,t.body={errors:f};case 12:case"end":return e.stop()}},e,void 0,[[0,5]])})),function(t,r){return e.apply(this,arguments)};var e},e.exports=t.default},function(e,t){e.exports=require("babel-runtime/core-js/object/define-properties")},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=f(r(2)),a=f(r(15)),u=f(r(1)),s=f(r(0)),o=f(r(5)),i=function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&(t[r]=e[r]);return t.default=e,t}(r(4));function f(e){return e&&e.__esModule?e:{default:e}}var d=["data","meta","links"],c=function(e,t){return e?t.reduce(function(t,r){return t[r]=e[r],t},{}):e};t.default=function(e){return t=(0,s.default)(n.default.mark(function t(r,f){var l;return n.default.wrap(function(t){for(;;)switch(t.prev=t.next){case 0:return r.body={},l=i.types(r),r.jsonapi=new o.default((0,u.default)({},e,{body:r.body})),(0,a.default)(r,{rel:{value:function(){}}}),(0,a.default)(r,d.reduce(function(e,t){return e[t]={value:function(){var e=(0,s.default)(n.default.mark(function e(){var a,u,s,o,i=arguments;return n.default.wrap(function(e){for(;;)switch(e.prev=e.next){case 0:return a="",u=void 0,s={},"string"==typeof(i.length<=0?void 0:i[0])?(a=i.length<=0?void 0:i[0],u=i.length<=1?void 0:i[1],i.length>2&&(s=i.length<=2?void 0:i[2])):(u=i.length<=0?void 0:i[0],i.length>1&&(s=i.length<=1?void 0:i[1])),o=void 0,o="keys"in s?Array.isArray(u)?u.map(function(e){return c(e,s.keys)}):c(u,s.keys):u,e.next=6,r.jsonapi.add("/"+t+a,o);case 6:return e.abrupt("return",e.sent);case 7:case"end":return e.stop()}},e,this)}));return function(){return e.apply(this,arguments)}}()},e},{})),t.next=7,f();case 7:r.set("content-type",l[0]+";charset=utf-8");case 8:case"end":return t.stop()}},t,void 0)})),function(e,r){return t.apply(this,arguments)};var t},e.exports=t.default},function(e,t){e.exports=require("koa-router")},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.getSchemas=t.Router=void 0;var n=c(r(17)),a=c(r(8)),u=c(r(5)),s=c(r(16)),o=c(r(14)),i=c(r(13)),f=c(r(12)),d=c(r(11));function c(e){return e&&e.__esModule?e:{default:e}}t.Router=function(e){return e=(0,a.default)({},e,{validate:{patch:!1,request:!0,response:!1}}),new n.default(e).use((0,o.default)()).use((0,s.default)({validatePatch:e.validate.patch})).use((0,i.default)()).use((0,d.default)()).use((0,f.default)({request:e.validate.request,response:e.validate.response}))};t.getSchemas=function(e){return u.default.getSchemas(e)}}]);
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading wasm modules
+/******/ 	var installedWasmModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// object with all compiled WebAssembly.Modules
+/******/ 	__webpack_require__.w = {};
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./src/helpers/createInitialError.js":
+/*!*******************************************!*\
+  !*** ./src/helpers/createInitialError.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "babel-runtime/core-js/object/assign");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (error) {
+  return (0, _assign2.default)({}, error, {
+    message: error.message,
+    stack: error.stack
+  });
+};
+
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./src/helpers/isDevContext.js":
+/*!*************************************!*\
+  !*** ./src/helpers/isDevContext.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (ctx) {
+  return ctx.app.env == 'development';
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/helpers/jsonapiMedia.js":
+/*!*************************************!*\
+  !*** ./src/helpers/jsonapiMedia.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.stringify = exports.types = exports.JSON_API_MEDIA_TYPES_DEV = exports.JSON_API_MEDIA_TYPES = undefined;
+
+var _isDevContext = __webpack_require__(/*! ~/helpers/isDevContext */ "./src/helpers/isDevContext.js");
+
+var _isDevContext2 = _interopRequireDefault(_isDevContext);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var JSON_API_MEDIA_TYPES = exports.JSON_API_MEDIA_TYPES = ['application/vnd.api+json'];
+var JSON_API_MEDIA_TYPES_DEV = exports.JSON_API_MEDIA_TYPES_DEV = ['application/json'];
+
+var types = exports.types = function types(ctx) {
+  return (0, _isDevContext2.default)(ctx) ? [].concat(JSON_API_MEDIA_TYPES, JSON_API_MEDIA_TYPES_DEV) : [].concat(JSON_API_MEDIA_TYPES);
+};
+var stringify = exports.stringify = function stringify(arrayOfTypes) {
+  return arrayOfTypes.filter(function (type) {
+    return !!type;
+  }).join(',');
+};
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getSchemas = exports.Router = undefined;
+
+var _koaRouter = __webpack_require__(/*! koa-router */ "koa-router");
+
+var _koaRouter2 = _interopRequireDefault(_koaRouter);
+
+var _lodash = __webpack_require__(/*! lodash.defaultsdeep */ "lodash.defaultsdeep");
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _jsonApi = __webpack_require__(/*! @alexeimyshkouski/json-api */ "@alexeimyshkouski/json-api");
+
+var _jsonApi2 = _interopRequireDefault(_jsonApi);
+
+var _exposeContextProps = __webpack_require__(/*! ./middleware/exposeContextProps */ "./src/middleware/exposeContextProps.js");
+
+var _exposeContextProps2 = _interopRequireDefault(_exposeContextProps);
+
+var _ensureErrorHandling = __webpack_require__(/*! ./middleware/ensureErrorHandling */ "./src/middleware/ensureErrorHandling.js");
+
+var _ensureErrorHandling2 = _interopRequireDefault(_ensureErrorHandling);
+
+var _errors = __webpack_require__(/*! ./middleware/errors */ "./src/middleware/errors.js");
+
+var _errors2 = _interopRequireDefault(_errors);
+
+var _validate = __webpack_require__(/*! ./middleware/validate */ "./src/middleware/validate.js");
+
+var _validate2 = _interopRequireDefault(_validate);
+
+var _bodyParser = __webpack_require__(/*! ./middleware/bodyParser */ "./src/middleware/bodyParser.js");
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function JsonApiRouter(options) {
+  options = (0, _lodash2.default)({}, options, {
+    validate: {
+      patch: false,
+      request: true,
+      response: false
+    }
+  });
+
+  var router = new _koaRouter2.default(options);
+
+  return router.use((0, _ensureErrorHandling2.default)()).use((0, _exposeContextProps2.default)({ validatePatch: options.validate.patch })).use((0, _errors2.default)()).use((0, _bodyParser2.default)()).use((0, _validate2.default)({
+    request: options.validate.request,
+    response: options.validate.response
+  }));
+}
+
+exports.Router = JsonApiRouter;
+var getSchemas = exports.getSchemas = function getSchemas(options) {
+  return _jsonApi2.default.getSchemas(options);
+};
+
+/***/ }),
+
+/***/ "./src/middleware/bodyParser.js":
+/*!**************************************!*\
+  !*** ./src/middleware/bodyParser.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "babel-runtime/helpers/toConsumableArray");
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _koaBodyparser = __webpack_require__(/*! koa-bodyparser */ "koa-bodyparser");
+
+var _koaBodyparser2 = _interopRequireDefault(_koaBodyparser);
+
+var _isDevContext = __webpack_require__(/*! ../helpers/isDevContext */ "./src/helpers/isDevContext.js");
+
+var _isDevContext2 = _interopRequireDefault(_isDevContext);
+
+var _jsonapiMedia = __webpack_require__(/*! ../helpers/jsonapiMedia */ "./src/helpers/jsonapiMedia.js");
+
+var jsonapiMedia = _interopRequireWildcard(_jsonapiMedia);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var options = {
+  strict: true,
+  enableTypes: ['json'],
+  detectJSON: function detectJSON(ctx) {
+    var _ctx$request;
+
+    var mediaTypes = jsonapiMedia.types(ctx);
+    var isJSON = !!(_ctx$request = ctx.request).is.apply(_ctx$request, (0, _toConsumableArray3.default)(mediaTypes));
+    ctx.assert(isJSON, 415);
+    return isJSON;
+  }
+};
+
+exports.default = function (options) {
+  var parser = (0, _koaBodyparser2.default)(options);
+
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(ctx, next) {
+      return _regenerator2.default.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return parser(ctx, (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+                var rawBody;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        rawBody = ctx.request.rawBody;
+
+                        ctx.state.hasBody = !!(rawBody && rawBody.length);
+
+                      case 2:
+                      case 'end':
+                        return _context.stop();
+                    }
+                  }
+                }, _callee, undefined);
+              })));
+
+            case 3:
+              _context2.next = 8;
+              break;
+
+            case 5:
+              _context2.prev = 5;
+              _context2.t0 = _context2['catch'](0);
+
+              ctx.throw(_context2.t0.statusCode || 415, {
+                details: _context2.t0.message,
+                headers: {
+                  accept: jsonapiMedia.stringify(jsonapiMedia.types(ctx))
+                }
+              });
+
+            case 8:
+              _context2.next = 10;
+              return next();
+
+            case 10:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined, [[0, 5]]);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/middleware/ensureErrorHandling.js":
+/*!***********************************************!*\
+  !*** ./src/middleware/ensureErrorHandling.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "babel-runtime/core-js/object/assign");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _httpErrors = __webpack_require__(/*! http-errors */ "http-errors");
+
+var _httpErrors2 = _interopRequireDefault(_httpErrors);
+
+var _isDevContext = __webpack_require__(/*! ../helpers/isDevContext */ "./src/helpers/isDevContext.js");
+
+var _isDevContext2 = _interopRequireDefault(_isDevContext);
+
+var _createInitialError = __webpack_require__(/*! ../helpers/createInitialError */ "./src/helpers/createInitialError.js");
+
+var _createInitialError2 = _interopRequireDefault(_createInitialError);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
+      var isDev, errors, _error;
+
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return next();
+
+            case 3:
+              _context.next = 12;
+              break;
+
+            case 5:
+              _context.prev = 5;
+              _context.t0 = _context['catch'](0);
+              isDev = (0, _isDevContext2.default)(ctx);
+              errors = [];
+
+
+              if (_context.t0.status) {
+                errors.push((0, _assign2.default)({
+                  status: _context.t0.status
+                }, _context.t0));
+              } else {
+                _error = new _httpErrors2.default(500, {
+                  detail: 'JSON API implementation error',
+                  meta: isDev ? {
+                    initialError: (0, _createInitialError2.default)(_context.t0)
+                  } : undefined
+                });
+
+
+                errors.push((0, _assign2.default)({
+                  status: _error.status
+                }, _error));
+              }
+
+              ctx.status = errors[0].status;
+              ctx.body = {
+                errors: errors
+              };
+
+            case 12:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined, [[0, 5]]);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/middleware/errors.js":
+/*!**********************************!*\
+  !*** ./src/middleware/errors.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "babel-runtime/core-js/object/assign");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _httpErrors = __webpack_require__(/*! http-errors */ "http-errors");
+
+var _httpErrors2 = _interopRequireDefault(_httpErrors);
+
+var _isDevContext = __webpack_require__(/*! ../helpers/isDevContext */ "./src/helpers/isDevContext.js");
+
+var _isDevContext2 = _interopRequireDefault(_isDevContext);
+
+var _jsonapiMedia = __webpack_require__(/*! ../helpers/jsonapiMedia */ "./src/helpers/jsonapiMedia.js");
+
+var jsonapiMedia = _interopRequireWildcard(_jsonapiMedia);
+
+var _createInitialError = __webpack_require__(/*! ../helpers/createInitialError */ "./src/helpers/createInitialError.js");
+
+var _createInitialError2 = _interopRequireDefault(_createInitialError);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapErrorsToJsonApiErrors = function mapErrorsToJsonApiErrors(isDev) {
+  return function (error) {
+    var id = error.id,
+        status = error.status,
+        expose = error.expose,
+        message = error.message,
+        detail = error.detail,
+        stack = error.stack,
+        headers = error.headers,
+        meta = error.meta;
+
+
+    var jsonapiError = {
+      id: error.id,
+      status: error.status
+    };
+
+    if (isDev || expose) {
+      (0, _assign2.default)(jsonapiError, {
+        title: message,
+        detail: detail
+      });
+    }
+
+    if (isDev || headers) {
+      var jsonapiMeta = (0, _assign2.default)({}, meta, {
+        headers: headers,
+        stack: isDev ? stack : undefined
+      });
+
+      (0, _assign2.default)(jsonapiError, {
+        meta: jsonapiMeta
+      });
+    }
+
+    return jsonapiError;
+  };
+};
+
+exports.default = function () {
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
+      var isDev, contentTypes, errors, initialError;
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              isDev = (0, _isDevContext2.default)(ctx);
+              contentTypes = jsonapiMedia.types(ctx);
+              _context.prev = 2;
+              _context.next = 5;
+              return next();
+
+            case 5:
+              _context.next = 15;
+              break;
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context['catch'](2);
+              errors = Array.isArray(_context.t0) ? _context.t0 : [_context.t0];
+              initialError = errors[0];
+
+
+              if (!initialError.status) {
+                ctx.throw(500, {
+                  detail: 'Initial error has no status code. Assuming it is an implementation error.',
+                  meta: {
+                    initialError: (0, _createInitialError2.default)(initialError)
+                  }
+                });
+              }
+
+              errors = errors.map(mapErrorsToJsonApiErrors(isDev));
+
+              if (errors.length > 1) {
+                if (initialError.status >= 500) {
+                  ctx.status = 500;
+                } else if (initialError.status >= 400) {
+                  ctx.status = 400;
+                }
+              } else {
+                ctx.status = initialError.status;
+                if ('meta' in initialError && 'headers' in initialError.meta) {
+                  ctx.set(initialError.meta.headers);
+                }
+              }
+
+              ctx.body = {
+                errors: errors
+              };
+
+            case 15:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined, [[2, 7]]);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/middleware/exposeContextProps.js":
+/*!**********************************************!*\
+  !*** ./src/middleware/exposeContextProps.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _defineProperties = __webpack_require__(/*! babel-runtime/core-js/object/define-properties */ "babel-runtime/core-js/object/define-properties");
+
+var _defineProperties2 = _interopRequireDefault(_defineProperties);
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "babel-runtime/core-js/object/assign");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _jsonApi = __webpack_require__(/*! @alexeimyshkouski/json-api */ "@alexeimyshkouski/json-api");
+
+var _jsonApi2 = _interopRequireDefault(_jsonApi);
+
+var _jsonapiMedia = __webpack_require__(/*! ../helpers/jsonapiMedia */ "./src/helpers/jsonapiMedia.js");
+
+var jsonapiMedia = _interopRequireWildcard(_jsonapiMedia);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var properties = ['data', 'meta', 'links'];
+var mapKeys = function mapKeys(value, keys) {
+  if (!value) {
+    return value;
+  }
+
+  return keys.reduce(function (_value, key) {
+    _value[key] = value[key];
+    return _value;
+  }, {});
+};
+
+exports.default = function (options) {
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(ctx, next) {
+      var mediaTypes;
+      return _regenerator2.default.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              ctx.body = {};
+              mediaTypes = jsonapiMedia.types(ctx);
+
+
+              ctx.jsonapi = new _jsonApi2.default((0, _assign2.default)({}, options, {
+                body: ctx.body
+              }));
+
+              (0, _defineProperties2.default)(ctx, {
+                rel: {
+                  value: function value() {}
+                }
+              });
+
+              (0, _defineProperties2.default)(ctx, properties.reduce(function (descriptor, prop) {
+                descriptor[prop] = {
+                  value: function () {
+                    var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+                      var path,
+                          value,
+                          options,
+                          _value,
+                          _args = arguments;
+
+                      return _regenerator2.default.wrap(function _callee$(_context) {
+                        while (1) {
+                          switch (_context.prev = _context.next) {
+                            case 0:
+                              path = '', value = void 0, options = {};
+
+
+                              if (typeof (_args.length <= 0 ? undefined : _args[0]) == 'string') {
+                                path = _args.length <= 0 ? undefined : _args[0];
+                                value = _args.length <= 1 ? undefined : _args[1];
+
+                                if (_args.length > 2) {
+                                  options = _args.length <= 2 ? undefined : _args[2];
+                                }
+                              } else {
+                                value = _args.length <= 0 ? undefined : _args[0];
+                                if (_args.length > 1) {
+                                  options = _args.length <= 1 ? undefined : _args[1];
+                                }
+                              }
+
+                              _value = void 0;
+
+
+                              if ('keys' in options) {
+                                if (Array.isArray(value)) {
+                                  _value = value.map(function (item) {
+                                    return mapKeys(item, options.keys);
+                                  });
+                                } else {
+                                  _value = mapKeys(value, options.keys);
+                                }
+                              } else {
+                                _value = value;
+                              }
+
+                              _context.next = 6;
+                              return ctx.jsonapi.add('/' + prop + path, _value);
+
+                            case 6:
+                              return _context.abrupt('return', _context.sent);
+
+                            case 7:
+                            case 'end':
+                              return _context.stop();
+                          }
+                        }
+                      }, _callee, this);
+                    }));
+
+                    function value() {
+                      return _ref2.apply(this, arguments);
+                    }
+
+                    return value;
+                  }()
+                };
+
+                return descriptor;
+              }, {}));
+
+              _context2.next = 7;
+              return next();
+
+            case 7:
+
+              ctx.set('content-type', mediaTypes[0] + ';charset=utf-8');
+
+            case 8:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/middleware/validate.js":
+/*!************************************!*\
+  !*** ./src/middleware/validate.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "babel-runtime/core-js/object/assign");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _jsonApi = __webpack_require__(/*! @alexeimyshkouski/json-api */ "@alexeimyshkouski/json-api");
+
+var _jsonApi2 = _interopRequireDefault(_jsonApi);
+
+var _lodash = __webpack_require__(/*! lodash.defaultsdeep */ "lodash.defaultsdeep");
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (options) {
+  options = (0, _lodash2.default)({}, options, {
+    request: true,
+    response: false
+  });
+
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!(options.request && ctx.state.hasBody)) {
+                _context.next = 9;
+                break;
+              }
+
+              _context.prev = 1;
+              _context.next = 4;
+              return _jsonApi2.default.validate(ctx.request.body);
+
+            case 4:
+              _context.next = 9;
+              break;
+
+            case 6:
+              _context.prev = 6;
+              _context.t0 = _context['catch'](1);
+
+              ctx.throw(422, {
+                detail: 'ValidationError: request body is not valid',
+                meta: _context.t0.reasons
+              });
+
+            case 9:
+              _context.next = 11;
+              return next();
+
+            case 11:
+              if (!options.response) {
+                _context.next = 21;
+                break;
+              }
+
+              _context.prev = 12;
+              _context.next = 15;
+              return _jsonApi2.default.validate(ctx.body);
+
+            case 15:
+              _context.next = 21;
+              break;
+
+            case 17:
+              _context.prev = 17;
+              _context.t1 = _context['catch'](12);
+
+              (0, _assign2.default)({
+                detail: 'ValidationError: response body is not valid',
+                meta: _context.t1.reasons
+              });
+
+              throw _context.t1;
+
+            case 21:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined, [[1, 6], [12, 17]]);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "@alexeimyshkouski/json-api":
+/*!*********************************************!*\
+  !*** external "@alexeimyshkouski/json-api" ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("@alexeimyshkouski/json-api");
+
+/***/ }),
+
+/***/ "babel-runtime/core-js/object/assign":
+/*!******************************************************!*\
+  !*** external "babel-runtime/core-js/object/assign" ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/core-js/object/assign");
+
+/***/ }),
+
+/***/ "babel-runtime/core-js/object/define-properties":
+/*!*****************************************************************!*\
+  !*** external "babel-runtime/core-js/object/define-properties" ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/core-js/object/define-properties");
+
+/***/ }),
+
+/***/ "babel-runtime/helpers/asyncToGenerator":
+/*!*********************************************************!*\
+  !*** external "babel-runtime/helpers/asyncToGenerator" ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/helpers/asyncToGenerator");
+
+/***/ }),
+
+/***/ "babel-runtime/helpers/toConsumableArray":
+/*!**********************************************************!*\
+  !*** external "babel-runtime/helpers/toConsumableArray" ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/helpers/toConsumableArray");
+
+/***/ }),
+
+/***/ "babel-runtime/regenerator":
+/*!********************************************!*\
+  !*** external "babel-runtime/regenerator" ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/regenerator");
+
+/***/ }),
+
+/***/ "http-errors":
+/*!******************************!*\
+  !*** external "http-errors" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("http-errors");
+
+/***/ }),
+
+/***/ "koa-bodyparser":
+/*!*********************************!*\
+  !*** external "koa-bodyparser" ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("koa-bodyparser");
+
+/***/ }),
+
+/***/ "koa-router":
+/*!*****************************!*\
+  !*** external "koa-router" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("koa-router");
+
+/***/ }),
+
+/***/ "lodash.defaultsdeep":
+/*!**************************************!*\
+  !*** external "lodash.defaultsdeep" ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash.defaultsdeep");
+
+/***/ })
+
+/******/ });
 //# sourceMappingURL=index.js.map

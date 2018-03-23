@@ -23,7 +23,8 @@ const config = {
     extensions: ['.js', '.json', '.yaml'],
     alias: {
       '~': __src,
-      '~paths': path.resolve(__approot, '.rootrc')
+      '~paths': path.resolve(__approot, '.rootrc'),
+      'test@alexeimyshkouski/json-api': path.resolve(__approot, '../json-api')
     }
   },
   module: {

@@ -47,13 +47,17 @@ export default () => async (ctx, next) => {
 
   try {
     await next()
+
+    if(ctx.jsonapi.has('/errors')) {
+      throw ctx.jsonapi.get('/errors')
+    }
   } catch (errorOrErrors) {
     let errors = (Array.isArray(errorOrErrors) ? errorOrErrors : [errorOrErrors])
 
     const initialError = errors[0]
 
     if(!initialError.status) {
-      ctx.throw(500, {
+      ctx.throw(501, {
         detail: `Initial error has no status code. Assuming it is an implementation error.`,
         meta: {
           initialError: createInitialError(initialError)

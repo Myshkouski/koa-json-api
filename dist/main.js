@@ -639,6 +639,10 @@ var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "babel-r
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
+var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "babel-runtime/helpers/toConsumableArray");
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
 var _defineProperties = __webpack_require__(/*! babel-runtime/core-js/object/define-properties */ "babel-runtime/core-js/object/define-properties");
 
 var _defineProperties2 = _interopRequireDefault(_defineProperties);
@@ -677,11 +681,11 @@ var mapKeys = function mapKeys(value, keys) {
 
 exports.default = function (options) {
   return function () {
-    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(ctx, next) {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx, next) {
       var mediaTypes;
-      return _regenerator2.default.wrap(function _callee2$(_context2) {
+      return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context.prev = _context.next) {
             case 0:
               ctx.body = {};
               mediaTypes = jsonapiMedia.types(ctx);
@@ -692,95 +696,93 @@ exports.default = function (options) {
               }));
 
               (0, _defineProperties2.default)(ctx, {
-                rel: {
-                  value: function value() {}
+                data: {
+                  value: function value(data) {
+                    this.jsonapi.add('/data', data);
+                  }
+                },
+                error: {
+                  value: function value(_value2) {
+                    var path = '/errors';
+
+                    var ops = [];
+                    var hasErrors = this.jsonapi.has(path);
+                    var errors = void 0;
+
+                    if (hasErrors) {
+                      errors = this.jsonapi.get(path);
+                    } else {
+                      errors = [];
+                    }
+
+                    if (Array.isArray(_value2)) {
+                      errors = [].concat((0, _toConsumableArray3.default)(errors), (0, _toConsumableArray3.default)(_value2));
+                    } else {
+                      errors = [].concat((0, _toConsumableArray3.default)(errors), [_value2]);
+                    }
+
+                    if (hasErrors) {
+                      ops.unshift({ op: 'replace', path: path, value: errors });
+                    } else {
+                      ops.unshift({ op: 'add', path: path, value: errors });
+                    }
+
+                    this.jsonapi.patch(ops);
+                  }
                 }
               });
 
-              (0, _defineProperties2.default)(ctx, properties.reduce(function (descriptor, prop) {
-                descriptor[prop] = {
-                  value: function () {
-                    var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
-                      var path,
-                          value,
-                          options,
-                          _value,
-                          _args = arguments;
+              // Object.defineProperties(ctx, properties.reduce((descriptor, prop) => {
+              //   descriptor[prop] = {
+              //     async value(...args) {
+              //       let path = '', value, options = {}
+              //
+              //       if(typeof args[0] == 'string') {
+              //         path = args[0]
+              //         value = args[1]
+              //
+              //         if(args.length > 2) {
+              //           options = args[2]
+              //         }
+              //       } else {
+              //         value = args[0]
+              //         if(args.length > 1) {
+              //           options = args[1]
+              //         }
+              //       }
+              //
+              //       let _value
+              //
+              //       if('keys' in options) {
+              //         if(Array.isArray(value)) {
+              //           _value = value.map(item => mapKeys(item, options.keys))
+              //         } else {
+              //           _value = mapKeys(value, options.keys)
+              //         }
+              //       } else {
+              //         _value = value
+              //       }
+              //
+              //       return await ctx.jsonapi.add(`/${ prop }${ path }`, _value)
+              //     }
+              //   }
+              //
+              //   return descriptor
+              // }, {}))
 
-                      return _regenerator2.default.wrap(function _callee$(_context) {
-                        while (1) {
-                          switch (_context.prev = _context.next) {
-                            case 0:
-                              path = '', value = void 0, options = {};
-
-
-                              if (typeof (_args.length <= 0 ? undefined : _args[0]) == 'string') {
-                                path = _args.length <= 0 ? undefined : _args[0];
-                                value = _args.length <= 1 ? undefined : _args[1];
-
-                                if (_args.length > 2) {
-                                  options = _args.length <= 2 ? undefined : _args[2];
-                                }
-                              } else {
-                                value = _args.length <= 0 ? undefined : _args[0];
-                                if (_args.length > 1) {
-                                  options = _args.length <= 1 ? undefined : _args[1];
-                                }
-                              }
-
-                              _value = void 0;
-
-
-                              if ('keys' in options) {
-                                if (Array.isArray(value)) {
-                                  _value = value.map(function (item) {
-                                    return mapKeys(item, options.keys);
-                                  });
-                                } else {
-                                  _value = mapKeys(value, options.keys);
-                                }
-                              } else {
-                                _value = value;
-                              }
-
-                              _context.next = 6;
-                              return ctx.jsonapi.add('/' + prop + path, _value);
-
-                            case 6:
-                              return _context.abrupt('return', _context.sent);
-
-                            case 7:
-                            case 'end':
-                              return _context.stop();
-                          }
-                        }
-                      }, _callee, this);
-                    }));
-
-                    function value() {
-                      return _ref2.apply(this, arguments);
-                    }
-
-                    return value;
-                  }()
-                };
-
-                return descriptor;
-              }, {}));
-
-              _context2.next = 7;
+              _context.next = 6;
               return next();
 
-            case 7:
+            case 6:
 
               ctx.set('content-type', mediaTypes[0] + ';charset=utf-8');
 
-            case 8:
+            case 7:
             case 'end':
-              return _context2.stop();
+              return _context.stop();
           }
         }
-      }, _callee2, undefined);
+      }, _callee, undefined);
     }));
 
     return function (_x, _x2) {

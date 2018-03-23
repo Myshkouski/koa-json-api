@@ -78,6 +78,684 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "../json-api/src/index.js":
+/*!********************************!*\
+  !*** ../json-api/src/index.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "babel-runtime/helpers/typeof");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _keys = __webpack_require__(/*! babel-runtime/core-js/object/keys */ "babel-runtime/core-js/object/keys");
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "babel-runtime/helpers/classCallCheck");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "babel-runtime/helpers/createClass");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _json8Patch = __webpack_require__(/*! json8-patch */ "json8-patch");
+
+var _json8Patch2 = _interopRequireDefault(_json8Patch);
+
+var _defaultsDeep = __webpack_require__(/*! lodash/defaultsDeep */ "lodash/defaultsDeep");
+
+var _defaultsDeep2 = _interopRequireDefault(_defaultsDeep);
+
+var _validate2 = __webpack_require__(/*! ./validate */ "../json-api/src/validate.js");
+
+var _mapValidationErrors = __webpack_require__(/*! ./mapValidationErrors */ "../json-api/src/mapValidationErrors.js");
+
+var _mapValidationErrors2 = _interopRequireDefault(_mapValidationErrors);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var JsonApi = function () {
+  (0, _createClass3.default)(JsonApi, null, [{
+    key: 'validate',
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var ref,
+            body,
+            _args = arguments;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                ref = '/', body = _args.length <= 0 ? undefined : _args[0];
+
+                if (_args.length > 1) {
+                  ref = _args.length <= 0 ? undefined : _args[0];
+                  body = _args.length <= 1 ? undefined : _args[1];
+                }
+
+                _context.prev = 2;
+                _context.next = 5;
+                return (0, _validate2.validate)(ref, body);
+
+              case 5:
+                return _context.abrupt('return', _context.sent);
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context['catch'](2);
+                throw {
+                  message: 'Validation error',
+                  reasons: _context.t0.errors.map(_mapValidationErrors2.default)
+                };
+
+              case 11:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 8]]);
+      }));
+
+      function validate() {
+        return _ref.apply(this, arguments);
+      }
+
+      return validate;
+    }()
+  }, {
+    key: 'get',
+    value: function get(doc, path) {
+      return _json8Patch2.default.get(doc, path);
+    }
+  }, {
+    key: 'has',
+    value: function has(doc, path) {
+      return _json8Patch2.default.has(doc, path);
+    }
+  }, {
+    key: 'patch',
+    value: function () {
+      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(body, ops) {
+        var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+        var res, reverted;
+        return _regenerator2.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                options = (0, _defaultsDeep2.default)({}, options, {
+                  reversible: false
+                });
+
+                res = void 0;
+                _context2.prev = 2;
+                _context2.prev = 3;
+
+                res = _json8Patch2.default.apply(body, ops, options);
+                _context2.next = 11;
+                break;
+
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2['catch'](3);
+
+                _context2.t0.detail = 'Cannot apply JSON patch';
+
+                throw _context2.t0;
+
+              case 11:
+                if (!options.validatePatch) {
+                  _context2.next = 21;
+                  break;
+                }
+
+                _context2.prev = 12;
+                _context2.next = 15;
+                return JsonApi.validate(res.doc);
+
+              case 15:
+                _context2.next = 21;
+                break;
+
+              case 17:
+                _context2.prev = 17;
+                _context2.t1 = _context2['catch'](12);
+
+                _context2.t1.detail = 'Document validation failed after patch has been applied';
+
+                throw _context2.t1;
+
+              case 21:
+                _context2.next = 28;
+                break;
+
+              case 23:
+                _context2.prev = 23;
+                _context2.t2 = _context2['catch'](2);
+
+                if (options.reversible) {
+                  reverted = _json8Patch2.default.revert(body, res.revert).doc;
+
+
+                  _context2.t2.doc = reverted;
+                }
+
+                _context2.t2.ops = ops;
+
+                throw _context2.t2;
+
+              case 28:
+                return _context2.abrupt('return', res);
+
+              case 29:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[2, 23], [3, 7], [12, 17]]);
+      }));
+
+      function patch(_x2, _x3) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return patch;
+    }()
+  }, {
+    key: 'add',
+    value: function () {
+      var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(body, path, value, options) {
+        var ops;
+        return _regenerator2.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                ops = [{ op: 'add', path: path, value: value }];
+                _context3.next = 3;
+                return JsonApi.patch(body, ops, options);
+
+              case 3:
+                return _context3.abrupt('return', _context3.sent);
+
+              case 4:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function add(_x4, _x5, _x6, _x7) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return add;
+    }()
+  }, {
+    key: 'getSchemas',
+    value: function getSchemas(options) {
+      options = (0, _defaultsDeep2.default)({}, options, {
+        type: 'schema',
+        id: '$id'
+      });
+
+      var schemas = (0, _validate2.getSchemas)();
+      return (0, _keys2.default)(schemas).reduce(function (array, key, index) {
+        var schema = {};
+
+        if (options.id == 'index') {
+          schema.id = index;
+        } else {
+          schema.id = schemas[key][options.id];
+        }
+
+        schema.type = options.type;
+
+        schema.attributes = schemas[key];
+
+        array.push(schema);
+
+        return array;
+      }, []);
+    }
+  }]);
+
+  function JsonApi() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    (0, _classCallCheck3.default)(this, JsonApi);
+
+    this.options = {};
+
+    if ('body' in options) {
+      if ((0, _typeof3.default)(options.body) != 'object') {
+        throw new Error('\'options.body\' should be a JSON object');
+      }
+      this.body = options.body;
+    } else {
+      this.body = {};
+    }
+
+    if ('validatePatch' in options) {
+      if (typeof options.validatePatch != 'boolean') {
+        throw new Error('\'options.validatePatch\' should be \'true\' or \'false\'');
+      }
+      this.options.validatePatch = options.validatePatch;
+    } else {
+      this.options.validatePatch = false;
+    }
+  }
+
+  (0, _createClass3.default)(JsonApi, [{
+    key: "get",
+    value: function get(path) {
+      return JsonApi.get(this.body, path);
+    }
+  }, {
+    key: 'has',
+    value: function has(path) {
+      return JsonApi.has(this.body, path);
+    }
+  }, {
+    key: 'validate',
+    value: function () {
+      var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
+        return _regenerator2.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return JsonApi.validate(this.body);
+
+              case 2:
+                return _context4.abrupt('return', _context4.sent);
+
+              case 3:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function validate() {
+        return _ref4.apply(this, arguments);
+      }
+
+      return validate;
+    }()
+  }, {
+    key: 'patch',
+    value: function () {
+      var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(ops) {
+        return _regenerator2.default.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return JsonApi.patch(this.body, ops, this.options);
+
+              case 2:
+                return _context5.abrupt('return', _context5.sent);
+
+              case 3:
+              case 'end':
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function patch(_x9) {
+        return _ref5.apply(this, arguments);
+      }
+
+      return patch;
+    }()
+  }, {
+    key: 'add',
+    value: function () {
+      var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(path, value) {
+        return _regenerator2.default.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return JsonApi.add(this.body, path, value, this.options);
+
+              case 2:
+                return _context6.abrupt('return', _context6.sent);
+
+              case 3:
+              case 'end':
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this);
+      }));
+
+      function add(_x10, _x11) {
+        return _ref6.apply(this, arguments);
+      }
+
+      return add;
+    }()
+  }]);
+  return JsonApi;
+}();
+
+exports.default = JsonApi;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "../json-api/src/mapValidationErrors.js":
+/*!**********************************************!*\
+  !*** ../json-api/src/mapValidationErrors.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (error) {
+  return {
+    message: error.message,
+    path: error.dataPath,
+    schema: error.parentSchema.$id
+  };
+};
+
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "../json-api/src/schemas.yaml":
+/*!************************************!*\
+  !*** ../json-api/src/schemas.yaml ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = [
+	{
+		"$id": "/",
+		"$async": true,
+		"allOf": [
+			{
+				"anyOf": [
+					{
+						"required": [
+							"data"
+						]
+					},
+					{
+						"required": [
+							"errors"
+						]
+					},
+					{
+						"required": [
+							"meta"
+						]
+					}
+				],
+				"errorMessage": "A document MUST contain at least one of the following top-level members: 'data', 'errors', 'meta'"
+			},
+			{
+				"not": {
+					"required": [
+						"errors",
+						"data"
+					]
+				},
+				"errorMessage": "The members data and errors MUST NOT coexist in the same document"
+			},
+			{
+				"not": {
+					"allOf": [
+						{
+							"not": {
+								"required": [
+									"data"
+								]
+							}
+						},
+						{
+							"required": [
+								"included"
+							]
+						}
+					]
+				},
+				"errorMessage": "If a document does not contain a top-level 'data' key, the 'included' member MUST NOT be present either"
+			},
+			{
+				"type": "object",
+				"properties": {
+					"data": {
+						"$ref": "/data"
+					},
+					"errors": {
+						"$ref": "/errors"
+					},
+					"meta": {
+						"$ref": "/meta"
+					},
+					"links": {
+						"$ref": "/links"
+					},
+					"included": {
+						"$ref": "/included"
+					},
+					"jsonapi": {
+						"type": "object"
+					}
+				},
+				"additionalProperties": false,
+				"errorMessage": {
+					"type": "A JSON object MUST be at the root of every JSON API request and response containing data",
+					"additionalProperties": "Unless otherwise noted, objects defined by this specification MUST NOT contain any additional members"
+				}
+			}
+		]
+	},
+	{
+		"$id": "/data",
+		"oneOf": [
+			{
+				"$ref": "/resource"
+			},
+			{
+				"$ref": "/included"
+			},
+			{
+				"type": "null"
+			}
+		],
+		"errorMessage": "Primary data MUST be either a single resource object, or a single resource identifier object, or null, for requests that target single resources, or an array of resource objects, or an array of resource identifier objects, or an empty array for requests that target resource collections"
+	},
+	{
+		"$id": "/errors",
+		"type": "array",
+		"items": {
+			"$ref": "/error"
+		},
+		"errorMessage": {
+			"type": "Error objects MUST be returned as an array keyed by errors in the top level of a JSON API document"
+		}
+	},
+	{
+		"$id": "/links",
+		"type": "object",
+		"patternProperties": {
+			"^.*": {
+				"$ref": "/link"
+			}
+		},
+		"additionalProperties": false,
+		"errorMessage": {
+			"type": "The value of each 'links' member MUST be an object"
+		}
+	},
+	{
+		"$id": "/included",
+		"type": "array",
+		"items": {
+			"$ref": "/resource"
+		}
+	},
+	{
+		"$id": "/resource",
+		"type": "object",
+		"properties": {
+			"id": {
+				"type": "string",
+				"errorMessage": "The values of the 'id' member MUST be strings"
+			},
+			"type": {
+				"type": "string",
+				"errorMessage": "The values of the 'type' member MUST be strings"
+			},
+			"meta": {
+				"$ref": "/meta"
+			},
+			"attributes": {
+				"type": "object"
+			},
+			"relationships": {
+				"type": "array",
+				"items": {
+					"$ref": "/resource"
+				}
+			},
+			"links": {
+				"$ref": "/links"
+			}
+		},
+		"required": [
+			"id",
+			"type"
+		],
+		"additionalProperties": false,
+		"errorMessage": {
+			"required": "Every resource object MUST contain an 'id' member and a 'type' member"
+		}
+	},
+	{
+		"$id": "/error",
+		"type": "object"
+	},
+	{
+		"$id": "/meta",
+		"type": "object"
+	},
+	{
+		"$id": "/link",
+		"oneOf": [
+			{
+				"type": [
+					"string"
+				]
+			},
+			{
+				"type": [
+					"object"
+				],
+				"properties": {
+					"href": {
+						"type": "string",
+						"errorMessage": "Member 'href' should be a string containing the link’s URL."
+					},
+					"meta": {
+						"$ref": "/meta"
+					}
+				},
+				"additionalProperties": false
+			}
+		],
+		"errorMessage": "A 'link' MUST be represented either a string containing the link’s URL, or an object which can contain the 'href' and 'meta' members"
+	}
+];
+
+/***/ }),
+
+/***/ "../json-api/src/validate.js":
+/*!***********************************!*\
+  !*** ../json-api/src/validate.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getSchemas = exports.addSchema = exports.validate = undefined;
+
+var _ajv = __webpack_require__(/*! ajv */ "ajv");
+
+var _ajv2 = _interopRequireDefault(_ajv);
+
+var _ajvErrors = __webpack_require__(/*! ajv-errors */ "ajv-errors");
+
+var _ajvErrors2 = _interopRequireDefault(_ajvErrors);
+
+var _schemas = __webpack_require__(/*! ./schemas */ "../json-api/src/schemas.yaml");
+
+var _schemas2 = _interopRequireDefault(_schemas);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ajv = new _ajv2.default({
+  schemas: _schemas2.default,
+  verbose: true,
+  allErrors: true,
+  jsonPointers: true
+});
+(0, _ajvErrors2.default)(ajv, {});
+
+var validate = exports.validate = function validate(ref, data) {
+  return ajv.validate(ref, data);
+};
+var addSchema = exports.addSchema = function addSchema(schemas) {
+  return ajv.addShema(schema);
+};
+var getSchemas = exports.getSchemas = function getSchemas(refs) {
+  var schemas = {};
+
+  for (var key in ajv._schemas) {
+    schemas[key] = ajv._schemas[key].schema;
+  }
+
+  return schemas;
+};
+
+/***/ }),
+
 /***/ "./src/helpers/createInitialError.js":
 /*!*******************************************!*\
   !*** ./src/helpers/createInitialError.js ***!
@@ -565,18 +1243,26 @@ exports.default = function () {
               return next();
 
             case 5:
-              _context.next = 15;
-              break;
+              if (!ctx.jsonapi.has('/errors')) {
+                _context.next = 7;
+                break;
+              }
+
+              throw ctx.jsonapi.get('/errors');
 
             case 7:
-              _context.prev = 7;
+              _context.next = 17;
+              break;
+
+            case 9:
+              _context.prev = 9;
               _context.t0 = _context['catch'](2);
               errors = Array.isArray(_context.t0) ? _context.t0 : [_context.t0];
               initialError = errors[0];
 
 
               if (!initialError.status) {
-                ctx.throw(500, {
+                ctx.throw(501, {
                   detail: 'Initial error has no status code. Assuming it is an implementation error.',
                   meta: {
                     initialError: (0, _createInitialError2.default)(initialError)
@@ -603,12 +1289,12 @@ exports.default = function () {
                 errors: errors
               };
 
-            case 15:
+            case 17:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[2, 7]]);
+      }, _callee, undefined, [[2, 9]]);
     }));
 
     return function (_x, _x2) {
@@ -635,25 +1321,45 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "babel-runtime/regenerator");
+var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "babel-runtime/helpers/toConsumableArray");
 
-var _regenerator2 = _interopRequireDefault(_regenerator);
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ "babel-runtime/core-js/get-iterator");
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 var _defineProperties = __webpack_require__(/*! babel-runtime/core-js/object/define-properties */ "babel-runtime/core-js/object/define-properties");
 
 var _defineProperties2 = _interopRequireDefault(_defineProperties);
 
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
 var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "babel-runtime/core-js/object/assign");
 
 var _assign2 = _interopRequireDefault(_assign);
+
+var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "babel-runtime/helpers/typeof");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
 
 var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "babel-runtime/helpers/asyncToGenerator");
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _jsonApi = __webpack_require__(/*! @alexeimyshkouski/json-api */ "@alexeimyshkouski/json-api");
+var _jsonApi = __webpack_require__(/*! test@alexeimyshkouski/json-api */ "../json-api/src/index.js");
 
 var _jsonApi2 = _interopRequireDefault(_jsonApi);
+
+var _defaultsDeep = __webpack_require__(/*! lodash/defaultsDeep */ "lodash/defaultsDeep");
+
+var _defaultsDeep2 = _interopRequireDefault(_defaultsDeep);
+
+var _pick = __webpack_require__(/*! lodash/pick */ "lodash/pick");
+
+var _pick2 = _interopRequireDefault(_pick);
 
 var _jsonapiMedia = __webpack_require__(/*! ../helpers/jsonapiMedia */ "./src/helpers/jsonapiMedia.js");
 
@@ -663,25 +1369,119 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var properties = ['data', 'meta', 'links'];
-var mapKeys = function mapKeys(value, keys) {
-  if (!value) {
-    return value;
-  }
+var dataPath = '/data';
+var includedPath = '/included';
+var errorsPath = '/errors';
 
-  return keys.reduce(function (_value, key) {
-    _value[key] = value[key];
-    return _value;
-  }, {});
-};
+var properties = ['data', 'meta', 'links'];
+// const pick = (value, keys) => {
+//   if (!value) {
+//     return value
+//   }
+//
+//   return keys
+//     .reduce((_value, key) => {
+//       _value[key] = value[key]
+//       return _value
+//     }, {})
+// }
+
+var transformDict = function () {
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(value, dict) {
+    var array, index, obj, _key, error;
+
+    return _regenerator2.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!(typeof dict == 'string')) {
+              _context.next = 4;
+              break;
+            }
+
+            return _context.abrupt('return', _jsonApi2.default.get(value, dict));
+
+          case 4:
+            if (!Array.isArray(dict)) {
+              _context.next = 17;
+              break;
+            }
+
+            array = [];
+            _context.t0 = _regenerator2.default.keys(dict);
+
+          case 7:
+            if ((_context.t1 = _context.t0()).done) {
+              _context.next = 14;
+              break;
+            }
+
+            index = _context.t1.value;
+            _context.next = 11;
+            return transformDict(value[key], dict[index]);
+
+          case 11:
+            array[key] = _context.sent;
+            _context.next = 7;
+            break;
+
+          case 14:
+            return _context.abrupt('return', array);
+
+          case 17:
+            if (!((typeof dict === 'undefined' ? 'undefined' : (0, _typeof3.default)(dict)) == 'object')) {
+              _context.next = 30;
+              break;
+            }
+
+            obj = (0, _assign2.default)({}, value);
+            _context.t2 = _regenerator2.default.keys(dict);
+
+          case 20:
+            if ((_context.t3 = _context.t2()).done) {
+              _context.next = 27;
+              break;
+            }
+
+            _key = _context.t3.value;
+            _context.next = 24;
+            return transformDict(value[_key], dict[_key]);
+
+          case 24:
+            obj[_key] = _context.sent;
+            _context.next = 20;
+            break;
+
+          case 27:
+            return _context.abrupt('return', obj);
+
+          case 30:
+            error = new TypeError('Canot apply dictionary to document');
+
+            error.doc = value;
+            error.dict = dict;
+            throw error;
+
+          case 34:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, undefined);
+  }));
+
+  return function transformDict(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
 
 exports.default = function (options) {
   return function () {
-    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(ctx, next) {
+    var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(ctx, next) {
       var mediaTypes;
-      return _regenerator2.default.wrap(function _callee2$(_context2) {
+      return _regenerator2.default.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               ctx.body = {};
               mediaTypes = jsonapiMedia.types(ctx);
@@ -692,99 +1492,312 @@ exports.default = function (options) {
               }));
 
               (0, _defineProperties2.default)(ctx, {
-                rel: {
-                  value: function value() {}
-                }
-              });
-
-              (0, _defineProperties2.default)(ctx, properties.reduce(function (descriptor, prop) {
-                descriptor[prop] = {
+                data: {
                   value: function () {
-                    var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+                    var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
                       var path,
                           value,
                           options,
+                          ops,
                           _value,
-                          _args = arguments;
+                          _iteratorNormalCompletion,
+                          _didIteratorError,
+                          _iteratorError,
+                          _iterator,
+                          _step,
+                          item,
+                          _args2 = arguments;
 
-                      return _regenerator2.default.wrap(function _callee$(_context) {
+                      return _regenerator2.default.wrap(function _callee2$(_context2) {
                         while (1) {
-                          switch (_context.prev = _context.next) {
+                          switch (_context2.prev = _context2.next) {
                             case 0:
-                              path = '', value = void 0, options = {};
+                              path = dataPath, value = void 0, options = {};
 
+                              if (typeof (_args2.length <= 0 ? undefined : _args2[0]) == 'string') {
+                                path += _args2.length <= 0 ? undefined : _args2[0];
+                                value = _args2.length <= 1 ? undefined : _args2[1];
 
-                              if (typeof (_args.length <= 0 ? undefined : _args[0]) == 'string') {
-                                path = _args.length <= 0 ? undefined : _args[0];
-                                value = _args.length <= 1 ? undefined : _args[1];
-
-                                if (_args.length > 2) {
-                                  options = _args.length <= 2 ? undefined : _args[2];
+                                if (_args2.length > 2) {
+                                  options = _args2.length <= 2 ? undefined : _args2[2];
                                 }
                               } else {
-                                value = _args.length <= 0 ? undefined : _args[0];
-                                if (_args.length > 1) {
-                                  options = _args.length <= 1 ? undefined : _args[1];
+                                value = _args2.length <= 0 ? undefined : _args2[0];
+                                if (_args2.length > 1) {
+                                  options = _args2.length <= 1 ? undefined : _args2[1];
                                 }
                               }
 
-                              _value = void 0;
+                              options = (0, _defaultsDeep2.default)({}, options, {});
 
+                              ops = [];
+
+                              if (!('dict' in options)) {
+                                _context2.next = 42;
+                                break;
+                              }
+
+                              if (!Array.isArray(value)) {
+                                _context2.next = 39;
+                                break;
+                              }
+
+                              _value = [];
+                              _iteratorNormalCompletion = true;
+                              _didIteratorError = false;
+                              _iteratorError = undefined;
+                              _context2.prev = 10;
+                              _iterator = (0, _getIterator3.default)(value);
+
+                            case 12:
+                              if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+                                _context2.next = 22;
+                                break;
+                              }
+
+                              item = _step.value;
+                              _context2.t0 = _value;
+                              _context2.next = 17;
+                              return transformDict(item, options.dict);
+
+                            case 17:
+                              _context2.t1 = _context2.sent;
+
+                              _context2.t0.push.call(_context2.t0, _context2.t1);
+
+                            case 19:
+                              _iteratorNormalCompletion = true;
+                              _context2.next = 12;
+                              break;
+
+                            case 22:
+                              _context2.next = 28;
+                              break;
+
+                            case 24:
+                              _context2.prev = 24;
+                              _context2.t2 = _context2['catch'](10);
+                              _didIteratorError = true;
+                              _iteratorError = _context2.t2;
+
+                            case 28:
+                              _context2.prev = 28;
+                              _context2.prev = 29;
+
+                              if (!_iteratorNormalCompletion && _iterator.return) {
+                                _iterator.return();
+                              }
+
+                            case 31:
+                              _context2.prev = 31;
+
+                              if (!_didIteratorError) {
+                                _context2.next = 34;
+                                break;
+                              }
+
+                              throw _iteratorError;
+
+                            case 34:
+                              return _context2.finish(31);
+
+                            case 35:
+                              return _context2.finish(28);
+
+                            case 36:
+                              value = _value;
+                              _context2.next = 42;
+                              break;
+
+                            case 39:
+                              _context2.next = 41;
+                              return transformDict(value, options.dict);
+
+                            case 41:
+                              value = _context2.sent;
+
+                            case 42:
+
+                              if ('defaults' in options) {
+                                if (Array.isArray(value)) {
+                                  value = value.map(function (item) {
+                                    return (0, _defaultsDeep2.default)(undefined, item, options.defaults);
+                                  });
+                                } else {
+                                  value = (0, _defaultsDeep2.default)(undefined, value, options.defaults);
+                                }
+                              }
 
                               if ('keys' in options) {
                                 if (Array.isArray(value)) {
-                                  _value = value.map(function (item) {
-                                    return mapKeys(item, options.keys);
+                                  value = value.map(function (item) {
+                                    return (0, _pick2.default)(item, options.keys);
                                   });
                                 } else {
-                                  _value = mapKeys(value, options.keys);
+                                  value = (0, _pick2.default)(value, options.keys);
                                 }
-                              } else {
-                                _value = value;
                               }
 
-                              _context.next = 6;
-                              return ctx.jsonapi.add('/' + prop + path, _value);
+                              if (this.jsonapi.has(path)) {
+                                ops.unshift({ op: 'replace', path: path, value: value });
+                              } else {
+                                ops.unshift({ op: 'add', path: path, value: value });
+                              }
 
-                            case 6:
-                              return _context.abrupt('return', _context.sent);
+                              _context2.next = 47;
+                              return this.jsonapi.patch(ops);
 
-                            case 7:
+                            case 47:
+                              return _context2.abrupt('return', _context2.sent);
+
+                            case 48:
                             case 'end':
-                              return _context.stop();
+                              return _context2.stop();
                           }
                         }
-                      }, _callee, this);
+                      }, _callee2, this, [[10, 24, 28, 36], [29,, 31, 35]]);
                     }));
 
                     function value() {
-                      return _ref2.apply(this, arguments);
+                      return _ref3.apply(this, arguments);
                     }
 
                     return value;
                   }()
-                };
+                },
+                error: {
+                  value: function () {
+                    var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(_value2) {
+                      var ops, hasErrors, hasData, errors, hasIncluded;
+                      return _regenerator2.default.wrap(function _callee3$(_context3) {
+                        while (1) {
+                          switch (_context3.prev = _context3.next) {
+                            case 0:
+                              ops = [];
+                              hasErrors = this.jsonapi.has(errorsPath);
+                              hasData = this.jsonapi.has(dataPath);
+                              errors = void 0;
 
-                return descriptor;
-              }, {}));
 
-              _context2.next = 7;
+                              if (hasErrors) {
+                                errors = this.jsonapi.get(errorsPath);
+                              } else {
+                                errors = [];
+                              }
+
+                              if (Array.isArray(_value2)) {
+                                errors = [].concat((0, _toConsumableArray3.default)(errors), (0, _toConsumableArray3.default)(_value2));
+                              } else {
+                                errors = [].concat((0, _toConsumableArray3.default)(errors), [_value2]);
+                              }
+
+                              if (hasErrors) {
+                                ops.unshift({
+                                  op: 'replace',
+                                  path: errorsPath,
+                                  value: errors
+                                });
+                              } else {
+                                ops.unshift({
+                                  op: 'add',
+                                  path: errorsPath,
+                                  value: errors
+                                });
+                              }
+
+                              if (hasData) {
+                                ops.unshift({
+                                  op: 'remove',
+                                  path: dataPath
+                                });
+                                hasIncluded = this.jsonapi.has(includedPath);
+
+                                if (hasIncluded) {
+                                  ops.unshift({
+                                    op: 'remove',
+                                    path: includedPath
+                                  });
+                                }
+                              }
+
+                              _context3.next = 10;
+                              return this.jsonapi.patch(ops);
+
+                            case 10:
+                              return _context3.abrupt('return', _context3.sent);
+
+                            case 11:
+                            case 'end':
+                              return _context3.stop();
+                          }
+                        }
+                      }, _callee3, this);
+                    }));
+
+                    function value(_x5) {
+                      return _ref4.apply(this, arguments);
+                    }
+
+                    return value;
+                  }()
+                }
+              });
+
+              // Object.defineProperties(ctx, properties.reduce((descriptor, prop) => {
+              //   descriptor[prop] = {
+              //     async value(...args) {
+              //       let path = '', value, options = {}
+              //
+              //       if(typeof args[0] == 'string') {
+              //         path = args[0]
+              //         value = args[1]
+              //
+              //         if(args.length > 2) {
+              //           options = args[2]
+              //         }
+              //       } else {
+              //         value = args[0]
+              //         if(args.length > 1) {
+              //           options = args[1]
+              //         }
+              //       }
+              //
+              //       let _value
+              //
+              //       if('keys' in options) {
+              //         if(Array.isArray(value)) {
+              //           _value = value.map(item => pick(item, options.keys))
+              //         } else {
+              //           _value = pick(value, options.keys)
+              //         }
+              //       } else {
+              //         _value = value
+              //       }
+              //
+              //       return await ctx.jsonapi.add(`/${ prop }${ path }`, _value)
+              //     }
+              //   }
+              //
+              //   return descriptor
+              // }, {}))
+
+              _context4.next = 6;
               return next();
 
-            case 7:
+            case 6:
 
               ctx.set('content-type', mediaTypes[0] + ';charset=utf-8');
 
-            case 8:
+            case 7:
             case 'end':
-              return _context2.stop();
+              return _context4.stop();
           }
         }
-      }, _callee2, undefined);
+      }, _callee4, undefined);
     }));
 
-    return function (_x, _x2) {
-      return _ref.apply(this, arguments);
+    return function (_x3, _x4) {
+      return _ref2.apply(this, arguments);
     };
   }();
 };
@@ -921,6 +1934,39 @@ module.exports = require("@alexeimyshkouski/json-api");
 
 /***/ }),
 
+/***/ "ajv":
+/*!**********************!*\
+  !*** external "ajv" ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("ajv");
+
+/***/ }),
+
+/***/ "ajv-errors":
+/*!*****************************!*\
+  !*** external "ajv-errors" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("ajv-errors");
+
+/***/ }),
+
+/***/ "babel-runtime/core-js/get-iterator":
+/*!*****************************************************!*\
+  !*** external "babel-runtime/core-js/get-iterator" ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/core-js/get-iterator");
+
+/***/ }),
+
 /***/ "babel-runtime/core-js/object/assign":
 /*!******************************************************!*\
   !*** external "babel-runtime/core-js/object/assign" ***!
@@ -943,6 +1989,17 @@ module.exports = require("babel-runtime/core-js/object/define-properties");
 
 /***/ }),
 
+/***/ "babel-runtime/core-js/object/keys":
+/*!****************************************************!*\
+  !*** external "babel-runtime/core-js/object/keys" ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/core-js/object/keys");
+
+/***/ }),
+
 /***/ "babel-runtime/helpers/asyncToGenerator":
 /*!*********************************************************!*\
   !*** external "babel-runtime/helpers/asyncToGenerator" ***!
@@ -954,6 +2011,28 @@ module.exports = require("babel-runtime/helpers/asyncToGenerator");
 
 /***/ }),
 
+/***/ "babel-runtime/helpers/classCallCheck":
+/*!*******************************************************!*\
+  !*** external "babel-runtime/helpers/classCallCheck" ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/helpers/classCallCheck");
+
+/***/ }),
+
+/***/ "babel-runtime/helpers/createClass":
+/*!****************************************************!*\
+  !*** external "babel-runtime/helpers/createClass" ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/helpers/createClass");
+
+/***/ }),
+
 /***/ "babel-runtime/helpers/toConsumableArray":
 /*!**********************************************************!*\
   !*** external "babel-runtime/helpers/toConsumableArray" ***!
@@ -962,6 +2041,17 @@ module.exports = require("babel-runtime/helpers/asyncToGenerator");
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/helpers/toConsumableArray");
+
+/***/ }),
+
+/***/ "babel-runtime/helpers/typeof":
+/*!***********************************************!*\
+  !*** external "babel-runtime/helpers/typeof" ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-runtime/helpers/typeof");
 
 /***/ }),
 
@@ -984,6 +2074,17 @@ module.exports = require("babel-runtime/regenerator");
 /***/ (function(module, exports) {
 
 module.exports = require("http-errors");
+
+/***/ }),
+
+/***/ "json8-patch":
+/*!******************************!*\
+  !*** external "json8-patch" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("json8-patch");
 
 /***/ }),
 
@@ -1017,6 +2118,28 @@ module.exports = require("koa-router");
 /***/ (function(module, exports) {
 
 module.exports = require("lodash.defaultsdeep");
+
+/***/ }),
+
+/***/ "lodash/defaultsDeep":
+/*!**************************************!*\
+  !*** external "lodash/defaultsDeep" ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash/defaultsDeep");
+
+/***/ }),
+
+/***/ "lodash/pick":
+/*!******************************!*\
+  !*** external "lodash/pick" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash/pick");
 
 /***/ })
 

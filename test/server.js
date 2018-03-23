@@ -1,5 +1,8 @@
 const Koa = require('koa')
-const { Router, getSchemas } = require('../')
+const {
+  Router,
+  getSchemas
+} = require('../')
 
 const koa = new Koa()
 const router = new Router({
@@ -17,14 +20,24 @@ router.post('/', async ctx => {
     type: 'test'
   })
 
-  await ctx.links({})
-  await ctx.links('/self', '/')
-
-  await ctx.jsonapi.add('/errors', [])
+  await ctx.error({ status: 501, message: 'test501' })
+  await ctx.error({ status: 502, message: 'test502' })
+  await ctx.error([
+    { status: 503, message: 'test503' },
+    { status: 504, message: 'test504' }
+  ])
 })
 
 router.get('/schemas', async ctx => {
-  await ctx.data(getSchemas(), { keys: [ 'id', 'type' ] })
+  await ctx.data(getSchemas(), {
+    keys: ['id', 'type', 'attributes.title'],
+    dict: {
+      id: '/attributes/$id'
+    },
+    defaults: {
+      type: 'schema'
+    }
+  })
 })
 
 koa.use(router.routes())
